@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add/Edit Card</title>
+</head>
+<body>
+<h1 th:text="${card.id == null ? 'Add Card' : 'Edit Card'}"></h1>
+
+<form th:action="@{${card.id == null ? '/cards/add' : '/cards/update/' + card.id}}" th:object="${card}" method="post" enctype="multipart/form-data">
+    <label for="cardNumber">Card Number:</label>
+    <input type="text" id="cardNumber" th:field="*{cardNumber}" placeholder="Enter card number" required/><br/>
+
+    <label for="cardHolderName">Card Holder Name:</label>
+    <input type="text" id="cardHolderName" th:field="*{cardHolderName}" placeholder="Enter card holder name"/><br/>
+
+    <label for="expirationDate">Expiration Date:</label>
+    <input type="date" id="expirationDate" th:field="*{expirationDate}" required/><br/>
+
+    <label for="cardType">Card Type:</label>
+    <input type="text" id="cardType" th:field="*{cardType}" placeholder="Enter card type"/><br/>
+
+    <label for="balance">Balance:</label>
+    <input type="number" id="balance" th:field="*{balance}" placeholder="Enter balance"/><br/>
+
+    <label for="image">Card Image:</label>
+    <input type="file" id="image" th:field="*{image}"/><br/>
+
+    <label for="customer">Customer:</label>
+    <select id="customer" th:field="*{customer.id}">
+        <option th:each="customer : ${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
+    </select><br/>
+
+    <button type="submit" th:text="${card.id == null ? 'Add Card' : 'Update Card'}"></button>
+</form>
+
+<a href="/cards">Back to Cards List</a>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cards List</title>
+</head>
+<body>
+<h1>Cards List</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Card Number</th>
+        <th>Card Holder Name</th>
+        <th>Expiration Date</th>
+        <th>Card Type</th>
+        <th>Balance</th>
+        <th>Customer</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="card : ${cards}">
+        <td th:text="${card.cardNumber}"></td>
+        <td th:text="${card.cardHolderName}"></td>
+        <td th:text="${card.expirationDate}"></td>
+        <td th:text="${card.cardType}"></td>
+        <td th:text="${card.balance}"></td>
+        <td th:text="${card.customer.name}"></td>
+        <td>
+            <a th:href="@{'/cards/edit/' + ${card.id}}">Edit</a>
+            <form th:action="@{'/cards/delete/' + ${card.id}}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/cards/add">Add New Card</a>
+</body>
+</html>
